@@ -4,6 +4,36 @@ import { useState } from 'react';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const REUSABLE_QUIZ: QuizQuestion[] = [
+  {
+    question:
+      'Apa tujuan utama membuat Reusable Component dalam pengembangan aplikasi React/Next.js?',
+    options: [
+      'Menambah ukuran file agar aplikasi terlihat besar',
+      'Mencegah duplikasi kode (DRY) dan mempermudah pemeliharaan UI yang konsisten',
+      'Menghapus penggunaan CSS dari seluruh website',
+      'Membuat website berjalan tanpa internet',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Reusable component memungkinkan kita menulis struktur UI dan logikanya 1 kali, lalu menggunakannya kembali di banyak tempat hanya dengan mengubah data input melalui `props`.',
+  },
+  {
+    question:
+      'Bagaimana cara komponen React menerima data atau konten kustom yang dibungkus di dalamnya (`<Card>Konten Disini</Card>`)?',
+    options: [
+      'Melalui prop khusus bernama `children`',
+      'Melalui variabel global window',
+      'Melalui localStorage browser',
+      'Komponen React tidak bisa membungkus konten lain',
+    ],
+    correctIndex: 0,
+    explanation:
+      'Prop `children` adalah prop bawaan React yang secara otomatis menampung elemen atau teks apa pun yang diletakkan di antara tag pembuka dan penutup sebuah komponen.',
+  },
+];
 
 export default function ReusableComponentDemo() {
   const [lastAction, setLastAction] = useState<string>('Belum ada aksi yang dipicu.');
@@ -136,6 +166,14 @@ export default function ReusableComponentDemo() {
           </div>
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="reusable-component"
+        topicTitle="Reusable Component & Props"
+        color="rose"
+        questions={REUSABLE_QUIZ}
+      />
     </div>
   );
 }

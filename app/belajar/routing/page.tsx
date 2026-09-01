@@ -1,5 +1,35 @@
 import Link from 'next/link';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const ROUTING_QUIZ: QuizQuestion[] = [
+  {
+    question:
+      'Bagaimana cara membuat rute dinamis (dynamic route) seperti `/produk/123` di Next.js App Router?',
+    options: [
+      'Menuliskan konfigurasi route di file express.js',
+      'Membuat nama folder dibungkus kurung siku, contoh: `app/produk/[id]/page.tsx`',
+      'Membuat file bernama `[id].html` di folder public',
+      'Menggunakan tanda tanya di URL seperti `?id=123`',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Di Next.js App Router, nama folder dengan kurung siku `[id]` atau `[slug]` otomatis menangkap parameter dinamis URL dan meneruskannya ke komponen `page.tsx` via `params`.',
+  },
+  {
+    question:
+      'Mengapa disarankan menggunakan `<Link href="...">` daripada `<a href="...">` biasa?',
+    options: [
+      'Agar halaman me-refresh total setiap diklik',
+      'Supaya terjadi navigasi instan di sisi klien (SPA) dengan prefetching tanpa reload penuh',
+      'Hanya untuk mengubah warna teks menjadi biru',
+      'Link HTML biasa sudah tidak didukung di browser modern',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Komponen `<Link>` Next.js melakukan prefetching halaman dan transisi di sisi klien (SPA), sehingga navigasi terasa sangat cepat dan mulus tanpa reload browser.',
+  },
+];
 
 export default function RoutingIntro() {
   return (
@@ -15,7 +45,7 @@ export default function RoutingIntro() {
         badgeColor="blue"
       />
 
-      <div className="relative z-10 w-full max-w-2xl flex flex-col items-center gap-8">
+      <div className="relative z-10 w-full max-w-2xl flex flex-col items-center gap-8 mb-8">
         <div className="w-full p-6 sm:p-8 rounded-3xl border border-blue-500/30 bg-gradient-to-b from-blue-500/10 via-zinc-900/80 to-zinc-900/90 backdrop-blur-md shadow-xl shadow-blue-500/5">
           <h2 className="text-xl font-bold text-white mb-2">Folder = URL Route</h2>
           <p className="text-xs text-zinc-400 mb-6 leading-relaxed">
@@ -61,6 +91,14 @@ export default function RoutingIntro() {
           </p>
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="routing"
+        topicTitle="Next.js App Routing"
+        color="blue"
+        questions={ROUTING_QUIZ}
+      />
     </div>
   );
 }

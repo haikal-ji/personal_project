@@ -1,5 +1,37 @@
 import ClientClock from '@/components/ClientClock';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const SERVER_CLIENT_QUIZ: QuizQuestion[] = [
+  {
+    question:
+      'Apa keuntungan utama dari Server Component (default di Next.js App Router)?',
+    options: [
+      'Bisa langsung menggunakan event onClick tanpa JavaScript',
+      '0 KB JavaScript yang dikirim ke browser dan akses database yang aman',
+      'Bisa menggunakan hook useState secara bebas',
+      'Otomatis membuat website menjadi mobile app',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Server Component dirender seluruhnya di server. HTML statis yang dihasilkan dikirim ke browser tanpa menyertakan kode JavaScript komponen tersebut, menjadikannya sangat cepat dan aman.',
+  },
+  {
+    question:
+      'Kapan kita WAJIB mengubah komponen menjadi Client Component menggunakan "use client"?',
+    options: [
+      'Saat hanya ingin menampilkan teks paragraf statis',
+      'Saat ingin membaca environment variable rahasia',
+      'Saat membutuhkan interaktivitas (onClick, onChange) atau React Hooks (useState, useEffect)',
+      'Saat ingin menghubungkan langsung ke PostgreSQL database',
+    ],
+    correctIndex: 2,
+    explanation:
+      'Setiap kali komponen membutuhkan browser APIs, event listeners interaktif, atau React hooks, kita wajib menambahkan direktif "use client".',
+  },
+];
+
+export const dynamic = 'force-dynamic';
 
 export default async function ServerClientDemo() {
   // Simulasi load data di server (query database / API rahasia)
@@ -111,6 +143,14 @@ export default async function ServerClientDemo() {
           </table>
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="server-client"
+        topicTitle="Server vs Client Component"
+        color="indigo"
+        questions={SERVER_CLIENT_QUIZ}
+      />
     </div>
   );
 }

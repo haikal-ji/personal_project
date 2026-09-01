@@ -1,5 +1,33 @@
 import LogoutButton from './LogoutButton';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const MIDDLEWARE_QUIZ: QuizQuestion[] = [
+  {
+    question: 'Di mana `middleware.ts` Next.js dieksekusi?',
+    options: [
+      'Di browser klien setelah semua HTML selesai di-load',
+      'Di Edge / Server sebelum request mencapai route handler atau halaman tujuan',
+      'Di dalam file database SQL',
+      'Hanya saat user melakukan klik tombol',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Middleware berjalan di Edge/Server sebelum request sampai ke halaman, sehingga sangat ideal untuk autentikasi, redirect, dan pemeriksaan header/cookie.',
+  },
+  {
+    question: 'Apa fungsi dari properti `config.matcher` pada middleware?',
+    options: [
+      'Menentukan tema warna website',
+      'Membatasi URL / rute spesifik mana saja yang akan diproses oleh middleware',
+      'Mengubah font tulisan di browser',
+      'Menghapus cookie user secara otomatis',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Matcher digunakan untuk memfilter rute tertentu (misal `/belajar/rahasia/:path*`) agar middleware tidak berjalan secara berlebihan pada aset statis atau rute publik.',
+  },
+];
 
 export default function RahasiaPage() {
   return (
@@ -15,7 +43,7 @@ export default function RahasiaPage() {
         badgeColor="amber"
       />
 
-      <div className="relative z-10 w-full max-w-lg">
+      <div className="relative z-10 w-full max-w-lg mb-8">
         <div className="p-8 rounded-3xl border border-emerald-500/40 bg-gradient-to-b from-emerald-500/10 via-zinc-900/80 to-zinc-900/90 backdrop-blur-md text-center shadow-2xl shadow-emerald-500/10">
           <div className="w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-3xl mx-auto mb-4 shadow-inner">
             🔓
@@ -46,6 +74,14 @@ export default function RahasiaPage() {
           <LogoutButton />
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="rahasia"
+        topicTitle="Next.js Middleware"
+        color="amber"
+        questions={MIDDLEWARE_QUIZ}
+      />
     </div>
   );
 }

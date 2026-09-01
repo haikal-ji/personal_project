@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import BelajarProgressTracker from './BelajarProgressTracker';
 
 interface BelajarNavProps {
   currentTopic?: string;
@@ -22,22 +25,45 @@ export default function BelajarNav({
   topicBadge = 'Interactive Demo',
   badgeColor = 'purple',
 }: BelajarNavProps) {
+  const openSearch = () => {
+    window.dispatchEvent(new Event('open_command_palette'));
+  };
+
   return (
     <header className="w-full max-w-5xl mb-8">
-      {/* Top bar with back link and quick topics */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-sm">
-        <Link
-          href="/belajar"
-          className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-black dark:hover:text-white transition-all shadow-xs"
-        >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
-          Kembali ke Hub
-        </Link>
+      {/* Top bar with back link, search shortcut, and quick topics */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-zinc-200/80 dark:border-zinc-800/80 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <Link
+            href="/belajar"
+            className="inline-flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-black dark:hover:text-white transition-all shadow-xs"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Kembali ke Hub
+          </Link>
+
+          {/* Quick Search trigger */}
+          <button
+            type="button"
+            onClick={openSearch}
+            className="inline-flex items-center gap-2 text-xs font-medium px-2.5 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-100/80 dark:bg-zinc-900/80 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-600 hover:text-black dark:hover:text-white transition-all cursor-pointer"
+          >
+            <span>🔍 Cari</span>
+            <kbd className="hidden sm:inline-block text-[10px] bg-zinc-200 dark:bg-zinc-800 px-1 py-0.5 rounded text-zinc-600 dark:text-zinc-400 font-mono">
+              Ctrl+K
+            </kbd>
+          </button>
+        </div>
+
+        {/* Minimal Progress Indicator */}
+        <div className="hidden md:block">
+          <BelajarProgressTracker minimal />
+        </div>
 
         {/* Quick topic switcher pills */}
-        <nav className="flex items-center gap-1.5 overflow-x-auto py-1 text-xs">
+        <nav className="flex items-center gap-1 overflow-x-auto py-1 text-xs">
           {TOPICS.map((topic) => {
             const isActive = currentTopic === topic.href;
             return (

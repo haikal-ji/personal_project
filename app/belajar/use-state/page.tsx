@@ -2,6 +2,36 @@
 
 import { useState } from 'react';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const USE_STATE_QUIZ: QuizQuestion[] = [
+  {
+    question:
+      'Apa yang terjadi saat fungsi setter (misal: setCount) dipanggil di React?',
+    options: [
+      'Halaman me-reload ulang browser dari awal',
+      'React me-render ulang (re-render) komponen dengan nilai state terbaru',
+      'Hanya mengubah variabel di memori tanpa memperbarui tampilan layar',
+      'Data otomatis disimpan permanen ke server database',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Fungsi setter memberi tahu React bahwa data telah berubah, sehingga React otomatis me-render ulang komponen terkait agar UI tetap sinkron.',
+  },
+  {
+    question:
+      'Direktif apa yang wajib ditulis di baris paling atas file Next.js App Router jika menggunakan useState?',
+    options: [
+      "'use server'",
+      "'use client'",
+      "'use effect'",
+      "Tidak memerlukan direktif apapun",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Hook interaktif seperti useState hanya bisa dijalankan di browser (Client Component), sehingga wajib menyertakan 'use client' di baris paling awal.",
+  },
+];
 
 export default function UseStateDemo() {
   const [count, setCount] = useState(0);
@@ -153,6 +183,14 @@ export default function UseStateDemo() {
           </div>
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="use-state"
+        topicTitle="useState Hook"
+        color="emerald"
+        questions={USE_STATE_QUIZ}
+      />
     </div>
   );
 }

@@ -2,6 +2,36 @@
 
 import { useEffect, useState } from 'react';
 import BelajarNav from '@/components/BelajarNav';
+import TopicQuiz, { QuizQuestion } from '@/components/TopicQuiz';
+
+const USE_EFFECT_QUIZ: QuizQuestion[] = [
+  {
+    question:
+      'Kapan useEffect dengan dependency array kosong `useEffect(fn, [])` akan dieksekusi?',
+    options: [
+      'Setiap kali ada state apapun yang berubah di halaman',
+      'Hanya 1 kali saat komponen pertama kali dipasang (mount) ke layar',
+      'Setiap 1 detik secara otomatis',
+      'Hanya saat user menekan tombol refresh',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Array kosong `[]` menandakan tidak ada dependensi yang dipantau, sehingga fungsi effect hanya dijalankan 1 kali saat pertama kali komponen terpasang (mount).',
+  },
+  {
+    question:
+      'Apa fungsi dari cleanup function `return () => { ... }` di dalam useEffect?',
+    options: [
+      'Menghapus file dari hard disk pengguna',
+      'Membersihkan timer (clearInterval) atau listener agar tidak terjadi memory leak saat komponen dilepas',
+      'Mematikan server Next.js',
+      'Merender ulang seluruh aplikasi',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Cleanup function dijalankan saat komponen di-unmount atau sebelum effect berikutnya dieksekusi untuk membersihkan interval, subscription, atau event listener guna mencegah kebocoran memori.',
+  },
+];
 
 export default function UseEffectDemo() {
   return (
@@ -60,6 +90,14 @@ export default function UseEffectDemo() {
           </div>
         </div>
       </div>
+
+      {/* Quiz Section */}
+      <TopicQuiz
+        topicId="use-effect"
+        topicTitle="useEffect Hook"
+        color="purple"
+        questions={USE_EFFECT_QUIZ}
+      />
     </div>
   );
 }
